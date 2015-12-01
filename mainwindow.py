@@ -121,6 +121,10 @@ class App:
           text  = entry[1].get()
           values.append(text)
        tree.insert("", END, text="New Event",values=(values[0], values[1], values[2], values[3]), tags=('ttk', 'simple'))
+       post = {"Description": values[0],"Date": values[1], "Hours": values[2],"Alert": values[3]}
+       posts = db.posts
+       post_id = posts.insert_one(post).inserted_id
+       db.nn(self)
 
 
 
