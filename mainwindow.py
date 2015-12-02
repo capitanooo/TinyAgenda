@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter import ttk
+import datetime
+import time
 import json
 
 from bson import json_util
@@ -14,6 +16,8 @@ class App:
     def __init__(self, master):
         global v
         global tree
+        global label
+        global frame
 
         frame = Frame(master, bd=1, relief=SUNKEN)
         frame.grid(row=0, column=0)
@@ -30,6 +34,24 @@ class App:
         tree.heading("Date", text="Date")
         tree.heading("Hours", text="Hours")
         tree.heading("Alert", text="Alert")
+
+
+
+        label = Label(frame, text="fffff", width=30)
+        label.pack()
+
+
+
+
+
+
+        print( 'Now    :', datetime.datetime.now())
+        print ('Today  :', datetime.datetime.today())
+        print ('UTC Now:', datetime.datetime.utcnow())
+
+        d = datetime.datetime.now()
+        for attr in [ 'year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond']:
+            print (attr, ':', getattr(d, attr))
 
 
 
@@ -75,6 +97,28 @@ class App:
 
         self.w.pack(side = LEFT)
 
+    def lollo(self):
+        global label
+        label.configure(text=time.asctime())
+        d = datetime.datetime.now()
+
+
+        b=db.nn(self)
+        print("New Event")
+
+        for post in b:
+
+            for attr in [ 'year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond']:
+                print (attr, ':', getattr(d, attr))
+                x=getattr(d, attr)
+                print ('zzzzzzzzzz', post['Hours'])
+                if int(post['Hours']) == int(x):
+                    print( ':xcxdsdssdsdsdsddddddnnnnnnnnnnnnnnnnnnnncxc')
+
+
+
+        frame.after(1000, self.lollo)
+
 
 
     ############ manage insertwindow ############
@@ -82,6 +126,8 @@ class App:
         insertwindow = Toplevel()
         insertwindow.geometry("400x300")
         insertwindow.title("insertwindow")
+
+
 
         handler = lambda: self.onCloseOtherFrame(insertwindow)
 
@@ -135,9 +181,10 @@ class App:
 
         a=db.re(self)
         json.dumps(a, default=json_util.default)
+        self.lollo()
 
 
-        v.set(a['author'])
+        v.set(a['Hours'])
 
         b=db.nn(self)
         print("New Event")

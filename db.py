@@ -11,11 +11,11 @@ result = db.posts.delete_many({})
 print(result.deleted_count)
 
 
-post = {"author": "Mike","text": "My first blog post!", "tags": ["mongodb", "python", "pymongo"]}
+post = {"author": "Mike","Hours": "6","text": "My first blog post!", "tags": ["mongodb", "python", "pymongo"]}
 posts = db.posts
 post_id = posts.insert_one(post).inserted_id
 
-post = {"author": "lollo","text": "My blog post!", "tags": ["uppo", "python", "poppo"]}
+post = {"author": "lollo","Hours": "8","text": "My blog post!", "tags": ["uppo", "python", "poppo"]}
 posts = db.posts
 post_id = posts.insert_one(post).inserted_id
 
