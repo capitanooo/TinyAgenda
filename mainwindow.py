@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter.messagebox import *
 import datetime
 import time
 import json
@@ -110,10 +111,17 @@ class App:
 
             for attr in [ 'year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond']:
                 print (attr, ':', getattr(d, attr))
-                x=getattr(d, attr)
-                print ('zzzzzzzzzz', post['Hours'])
-                if int(post['Hours']) == int(x):
-                    print( ':xcxdsdssdsdsdsddddddnnnnnnnnnnnnnnnnnnnncxc')
+
+            year=getattr(d, 'year')
+            month=getattr(d, 'month')
+            day=getattr(d, 'day')
+            hour=getattr(d, 'hour')
+            minute=getattr(d, 'minute')
+
+
+            if (int(post['Hours']) == int(minute)) and (int(post['Hours']) == int(minute)):
+                print( ':xcxdsdssdsdsdsddddddnnnnnnnnnnnnnnnnnnnncxc')
+                showinfo( "Answer", "Sorry, no answer available")
 
 
 
@@ -146,6 +154,33 @@ class App:
           ent.pack(side=RIGHT, expand=YES, fill=X)
 
           entries.append((field, ent))
+
+
+
+        # spinbox for year
+        self.spin_year = Spinbox(insertwindow, from_ = -3000, to = 3000, width = 3)
+        self.spin_year.pack(side = 'left', fill = X, expand = 1)
+        self.spin_year.config(state = 'readonly')
+        # spinbox for month
+        self.spin_month = Spinbox(insertwindow,
+                                  from_ = 1, to = 12,
+                                  width = 3)
+        self.spin_month.pack(side = 'left', fill = X, expand = 1)
+        self.spin_month.config(state = 'readonly')# spinbox for hour
+        self.spin_hour = Spinbox(insertwindow,
+                                 from_ = 0, to = 23,
+                                 width = 3)
+        self.spin_hour.pack(side = LEFT, fill = X, expand = 1)
+        self.spin_hour.config(state = 'readonly')
+        # spinbox for minute
+        self.spin_minute = Spinbox(insertwindow,
+                                 from_ = 0, to = 59,
+                                 width = 3)
+        self.spin_minute.pack(side = LEFT, fill = X, expand = 1)
+        self.spin_minute.config(state = 'readonly')
+
+
+
 
         cities = ('Toronto', 'Ottawa', 'Montreal', 'Vancouver', 'St. John')
         cbp3 = ttk.Labelframe(insertwindow, text='Pre-defined List')
