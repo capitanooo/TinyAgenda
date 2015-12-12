@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.messagebox import *
 import datetime
+import calendar
 import time
 import json
 
@@ -19,6 +20,8 @@ class App:
         global tree
         global label
         global frame
+        global cal
+
 
         frame = Frame(master, bd=1, relief=SUNKEN)
         frame.grid(row=0, column=0)
@@ -162,36 +165,61 @@ class App:
         self.spin_year.pack(side = 'left', fill = X, expand = 1)
         self.spin_year.config(state = 'readonly')
         # spinbox for month
-        self.spin_month = Spinbox(insertwindow,
-                                  from_ = 1, to = 12,
-                                  width = 3)
+        self.spin_month = Spinbox(insertwindow,from_ = 1, to = 12,width = 3)
         self.spin_month.pack(side = 'left', fill = X, expand = 1)
-        self.spin_month.config(state = 'readonly')# spinbox for hour
-        self.spin_hour = Spinbox(insertwindow,
-                                 from_ = 0, to = 23,
-                                 width = 3)
+        self.spin_month.config(state = 'readonly')
+        # spinbox for hour
+        self.spin_hour = Spinbox(insertwindow,from_ = 0, to = 23,width = 3)
         self.spin_hour.pack(side = LEFT, fill = X, expand = 1)
         self.spin_hour.config(state = 'readonly')
         # spinbox for minute
-        self.spin_minute = Spinbox(insertwindow,
-                                 from_ = 0, to = 59,
-                                 width = 3)
+        self.spin_minute = Spinbox(insertwindow,from_ = 0, to = 59,width = 3)
         self.spin_minute.pack(side = LEFT, fill = X, expand = 1)
         self.spin_minute.config(state = 'readonly')
 
 
 
 
-        cities = ('Toronto', 'Ottawa', 'Montreal', 'Vancouver', 'St. John')
+
+
+
+
+
+        month = ('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')
         cbp3 = ttk.Labelframe(insertwindow, text='Pre-defined List')
-        cb3 = ttk.Combobox(cbp3, values=cities, state='readonly')
+        cb3 = ttk.Combobox(cbp3, values=month, state='readonly')
+        cb3.bind('<<ComboboxSelected>>', self.showcalendar)
+
         cb3.current(1)  # set selection
         cb3.pack(pady=5, padx=10)
         cbp3.pack()
 
+
+        global cal
+        cal = StringVar()
+        cal.set("New Text!")
+        z = Label(insertwindow, width=15, textvariable=cal )
+        
+        z.pack()
+
+
+
         btn = Button(insertwindow, text="Close", command=lambda e=entries:  self.fetch(e))
         btn.pack()
 
+
+    def showcalendar(self,month):
+
+        global cal
+
+        widget = month.widget           # get widget
+        txt = widget.get()            # get current text
+        vals = widget.current()  # get values
+        print(vals)
+        now = datetime.datetime.now()
+
+        c = calendar.TextCalendar(calendar.SUNDAY).formatmonth(now.year, vals+1)
+        cal.set(c)
 
 
     ############ retrive  insertwindow ############
